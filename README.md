@@ -27,6 +27,14 @@ A server is required (ES modules, audio and kit SVGs are fetched). Pages are lin
 
 Layout follows anikanilles.com: a slim centred top bar of small uppercase links, a full-width hero with a very large title, a rotated "ABOUT" label beside bold justified text, a photo band with a stage-highlights panel, plain rows with buttons (like its dates list), a single row of brand logos and a slim slate footer. Nav and footer are repeated in each file. If you add a page, add it to both on every page.
 
+## SEO
+
+- **Every page** has its own title, description, canonical URL, share image (`assets/images/share/`, 1200×630) and JSON-LD structured data in its `<head>`. The same person (`#nishant`) is described on every page; `media.html` also lists its 12 videos with their YouTube upload dates and lengths, so update that list when you swap a video.
+- **`robots.txt`**, **`sitemap.xml`** and **`llms.txt`** (a plain summary for AI assistants) are in the root. When you add or change a page, update the sitemap (`lastmod` too) and `llms.txt`.
+- **Google Search Console** is verified by the `google-site-verification` tag in `index.html`. Keep it there.
+- **Photos** in `assets/photos/nh/` and the kit photo have smaller `.webp` copies (640 to 2400px wide) that browsers choose through `srcset`. If you replace a JPEG, remake its `.webp` copies or remove the `srcset`, or the old photo keeps showing.
+- **Changing the domain:** replace `https://nishant-website-nine.vercel.app` in all the HTML files, `robots.txt`, `sitemap.xml` and `llms.txt`.
+
 ## Content and sources
 
 Bio facts come from the artist profile PDF the team supplied ("Nishant Hagjer Artist Profile 2025"), his Paiste artist page, Rolling Stone India (2023) and his YouTube channel (listed at the bottom of `about.html`). Anything not on those was left out. The photos in `assets/photos/profile/` were extracted from that PDF (about 450px wide, so they look soft when enlarged); swap in the originals for sharper results.
