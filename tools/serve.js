@@ -22,6 +22,7 @@ http.createServer((req, res) => {
   try { rel = path.posix.normalize('/' + decodeURIComponent(req.url.split('?')[0].split('#')[0])); }
   catch { res.writeHead(400).end('Bad request'); return; }
   if (rel.endsWith('/')) rel += 'index.html';
+  else if (!path.posix.extname(rel)) rel += '.html'; // clean URLs, like cleanUrls in vercel.json
   const file = path.join(root, rel);
   if (!file.startsWith(root + path.sep)) { res.writeHead(403).end('Forbidden'); return; }
   fs.stat(file, (err, st) => {

@@ -11,7 +11,7 @@ npm start            # http://localhost:8000  (built-in server, Node 18+)
 # or: python3 -m http.server 8000
 ```
 
-A server is required (ES modules, audio and kit SVGs are fetched).
+A server is required (ES modules, audio and kit SVGs are fetched). Pages are linked without `.html` (`/play`): `vercel.json` turns that on in production and `tools/serve.js` does the same locally, so use `npm start` instead of the Python server to follow links.
 
 ## Pages
 
@@ -48,7 +48,7 @@ Videos on `media.html` are YouTube embeds that load on click (youtube-nocookie).
 **Swapping sounds.** The Sound library lists real drum recordings grouped by the part they fit (kick, snare, cross stick, rack toms, floor toms, hi-hat closed/open/pedal, crash, ride, china, splash). Drag a sound onto a part to change what that part plays. A sound only fits parts of its own group, so a kick sound can't be dropped on the snare: while you drag, the matching parts glow and the rest are dimmed. Each row of "Your setup" also has a dropdown (keyboard and phone friendly) and a play button. Choices are remembered in the browser; "Reset all sounds" restores the defaults. On phones the kit stays pinned while the library scrolls, and the dotted handle is the drag grip.
 
 **Where things live**
-- `js/drumkit/kit-config.js`: the kit's parts (size, keys, sound group, hotspot ellipse on the photo). Add `?debug` to the Play page URL (`/play.html?debug`) to outline every hotspot, then nudge the numbers. A part with no hotspot (the 16″ floor tom, which isn't visible in the photo) is still playable from its key and the setup list.
+- `js/drumkit/kit-config.js`: the kit's parts (size, keys, sound group, hotspot ellipse on the photo). Add `?debug` to the Play page URL (`/play?debug`) to outline every hotspot, then nudge the numbers. A part with no hotspot (the 16″ floor tom, which isn't visible in the photo) is still playable from its key and the setup list.
 - `assets/sounds/library/`: the sounds plus `manifest.json` (groups and sound names). **To add your own sounds**, drop a WAV in that folder and add an entry to the right group in `manifest.json`. They appear in the library straight away.
 - `npm run samples` rebuilds the demo library from the source recordings (edit the `GROUPS` table in `tools/import-samples.js` to change which are included).
 
