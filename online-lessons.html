@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Online Lessons — Nishant Hagjer</title>
+  <meta name="description" content="One-on-one online drum lessons with Nishant Hagjer, live over video call. Request a session.">
+  <meta name="theme-color" content="#0C0C0C">
+  <meta property="og:title" content="Online Lessons — Nishant Hagjer">
+  <meta property="og:description" content="One-on-one online drum lessons with Nishant Hagjer, live over video call. Request a session.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <script>document.documentElement.classList.add('js');</script>
+  <script type="module" src="js/main.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="topbar">
+    <a class="topbar__brand" href="index.html" aria-label="Nishant Hagjer, home">Nishant Hagjer</a>
+    <nav class="topbar__nav" aria-label="Primary">
+      <ul class="nav__links" id="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="media.html">Media</a></li>
+        <li><a href="play.html">Play</a></li>
+        <li><a href="courses.html">Courses</a></li>
+        <li><a href="online-lessons.html" aria-current="page">Online Lessons</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+    <button class="nav__toggle" aria-expanded="false" aria-controls="nav-links" aria-label="Open menu"><span></span><span></span></button>
+  </header>
+
+  <main id="main">
+    <section class="lh" aria-label="Online lessons">
+      <div class="lh__stage">
+        <img class="lh__photo" src="assets/photos/nh/sunglasses-seated.jpg" alt="Nishant Hagjer in sunglasses, seated on his kick drum between blue and purple Paiste rides in a pine forest" width="1800" height="1255" fetchpriority="high">
+        <h1 class="lh__title" aria-label="One on one, with Nishant"><span class="lh__one lh__one--l" aria-hidden="true">One</span><span class="lh__on" aria-hidden="true">on</span><span class="lh__one lh__one--r" aria-hidden="true">One</span></h1>
+      </div>
+      <div class="lh__copy">
+        <div>
+          <p class="lh__with" aria-hidden="true">with Nishant.</p>
+          <p class="lh__lead">Live drum lessons over video call.</p>
+        </div>
+        <a class="btn" href="#coaching">Request a session</a>
+      </div>
+    </section>
+
+    <section class="section" id="coaching">
+      <div class="container coach__grid">
+        <div>
+          <p class="label reveal">Online lessons</p>
+          <h2 class="reveal">Book your <em>session.</em></h2>
+          <p class="lead reveal" style="margin-top:1.4rem">Booked straight with him. Email or send a request to ask about availability and to fix a time.</p>
+          <div class="callcard reveal">
+            <p class="callcard__label">Direct contact</p>
+            <a class="mail" href="mailto:nishanthagjer@gmail.com?subject=Online%20coaching">nishanthagjer@gmail.com</a>
+          </div>
+        </div>
+        <!-- Sent through FormSubmit (formsubmit.co) to the address in action. js/ui/contact.js submits it without leaving the page. -->
+        <form class="contact-form reveal" action="https://formsubmit.co/nishanthagjer@gmail.com" method="POST" data-formsubmit data-success="Thank you. Your request has been sent, and Nishant will reply by email." aria-labelledby="req-title">
+          <input type="hidden" name="_subject" value="Online lesson request">
+          <input type="hidden" name="_template" value="table">
+          <input class="honey" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <h3 id="req-title" class="form-title">Request a one-on-one session</h3>
+          <div class="field-row">
+            <div class="field"><input id="c-name" name="name" type="text" placeholder=" " autocomplete="name" required><label for="c-name">Your name</label></div>
+            <div class="field"><input id="c-email" name="email" type="email" placeholder=" " autocomplete="email" required><label for="c-email">Your email</label></div>
+          </div>
+          <div class="field field--select"><select id="c-level" name="Level" required><option value="" selected>Choose your level</option><option>Beginner</option><option>Intermediate</option><option>Advanced</option></select><label for="c-level">Your level</label></div>
+          <div class="field"><input id="c-time" name="Preferred days and times" type="text" placeholder=" "><label for="c-time">Preferred days and times (and your time zone)</label></div>
+          <div class="field"><textarea id="c-goals" name="Wants to work on" rows="3" placeholder=" " required></textarea><label for="c-goals">What would you like to work on?</label></div>
+          <button class="btn" type="submit">Send request</button>
+          <p class="form-status" role="status" aria-live="polite" data-form-status></p>
+        </form>
+      </div>
+    </section>
+
+    <section class="section section--panel">
+      <div class="container">
+        <div class="reveal" style="margin-bottom:2.5rem"><p class="label">How it works</p><h2>Three <em>steps.</em></h2></div>
+        <ol class="steps">
+          <li class="reveal"><span>1</span><div><h3>Get in touch</h3><p>Email Nishant directly, or send the request form above.</p></div></li>
+          <li class="reveal"><span>2</span><div><h3>Agree a time</h3><p>Tell him your level and goals, and fix a time that works.</p></div></li>
+          <li class="reveal"><span>3</span><div><h3>Learn live</h3><p>A one-on-one lesson over video call, wherever you are.</p></div></li>
+          </ol>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container split">
+        <figure class="frame frame--wide reveal">
+          <div class="frame__clip"><img src="assets/photos/nh/kit-standing.jpg" alt="Nishant Hagjer standing behind his yellow Mapex kit in a pine forest" width="1800" height="1200" loading="lazy" decoding="async"></div>
+        </figure>
+        <div>
+          <p class="label reveal">What lessons are like</p>
+          <h2 class="reveal">Personal, <em>not generic.</em></h2>
+          <p class="lead reveal" style="margin-top:1.4rem">Nishant’s drum lessons are heavily equipped with very personal experiences and stories, and act as a therapeutic session for all his students.</p>
+          <p class="reveal">He has taught over 120 students one-on-one in Delhi, 70+ in Kathmandu and almost 200 in Guwahati, and teaches over Skype, mainly students from outside North-East India. He learned from Benny Greb in 2011 and has run sold-out workshops in Guwahati, Delhi and Kathmandu.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <nav class="footer__links" aria-label="Footer"><a href="index.html">Home</a> <span aria-hidden="true">|</span> <a href="about.html">About</a> <span aria-hidden="true">|</span> <a href="media.html">Media</a> <span aria-hidden="true">|</span> <a href="play.html">Play</a> <span aria-hidden="true">|</span> <a href="courses.html">Courses</a> <span aria-hidden="true">|</span> <a href="contact.html">Contact</a></nav>
+    <p>© <span data-year>2026</span> Nishant Hagjer · Guwahati, Assam, India</p>
+  </footer>
+</body>
+</html>

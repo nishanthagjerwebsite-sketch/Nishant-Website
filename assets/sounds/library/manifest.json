@@ -1,0 +1,596 @@
+{
+  "source": "Kick, snare and toms: Nishant’s own recordings. Everything else: CC0 demo recordings (VCSL, Karoryfer) via github.com/Nullframe/daw-content",
+  "groups": [
+    {
+      "id": "kick",
+      "label": "Kick drum",
+      "note": "Fits the 22″ kick",
+      "demo": false,
+      "sounds": [
+        {
+          "id": "kick-d6-hard-1",
+          "name": "D6 kick",
+          "tag": "Hard 1",
+          "file": "kick-d6-hard-1.wav",
+          "seconds": 1.14
+        },
+        {
+          "id": "kick-d6-hard-2",
+          "name": "D6 kick",
+          "tag": "Hard 2",
+          "file": "kick-d6-hard-2.wav",
+          "seconds": 1.14
+        },
+        {
+          "id": "kick-d6-normal",
+          "name": "D6 kick",
+          "tag": "Normal",
+          "file": "kick-d6-normal.wav",
+          "seconds": 0.9
+        },
+        {
+          "id": "kick-ba19-hard",
+          "name": "BA19 kick",
+          "tag": "Hard",
+          "file": "kick-ba19-hard.wav",
+          "seconds": 1.14
+        }
+      ]
+    },
+    {
+      "id": "snare",
+      "label": "Snare",
+      "note": "Fits the 14″ snare and the black side snare",
+      "demo": false,
+      "sounds": [
+        {
+          "id": "snare-goblin",
+          "name": "Goblin C",
+          "tag": "Rimshot",
+          "file": "snare-goblin.wav",
+          "seconds": 1.67
+        },
+        {
+          "id": "snare-solidus",
+          "name": "Solidus B",
+          "tag": "Rimshot 3",
+          "file": "snare-solidus.wav",
+          "seconds": 1.93
+        },
+        {
+          "id": "snare-atomizer",
+          "name": "Atomizer C",
+          "tag": "Rimshot",
+          "file": "snare-atomizer.wav",
+          "seconds": 1.63
+        }
+      ]
+    },
+    {
+      "id": "tom-8",
+      "label": "8″ tom",
+      "note": "Fits the 8″ rack tom",
+      "demo": false,
+      "sounds": [
+        {
+          "id": "tom-8-1",
+          "name": "8″ tom",
+          "tag": "Hard 1",
+          "file": "tom-8-1.wav",
+          "seconds": 2.86
+        },
+        {
+          "id": "tom-8-2",
+          "name": "8″ tom",
+          "tag": "Hard 2",
+          "file": "tom-8-2.wav",
+          "seconds": 3.2
+        }
+      ]
+    },
+    {
+      "id": "tom-10",
+      "label": "10″ tom",
+      "note": "Fits the 10″ rack tom",
+      "demo": false,
+      "sounds": [
+        {
+          "id": "tom-10-1",
+          "name": "10″ tom",
+          "tag": "Hard 1",
+          "file": "tom-10-1.wav",
+          "seconds": 2.86
+        },
+        {
+          "id": "tom-10-2",
+          "name": "10″ tom",
+          "tag": "Hard 2",
+          "file": "tom-10-2.wav",
+          "seconds": 2.86
+        }
+      ]
+    },
+    {
+      "id": "tom-12",
+      "label": "12″ tom",
+      "note": "Fits the 12″ rack tom",
+      "demo": false,
+      "sounds": [
+        {
+          "id": "tom-12-1",
+          "name": "12″ tom",
+          "tag": "Hard 1",
+          "file": "tom-12-1.wav",
+          "seconds": 3.2
+        },
+        {
+          "id": "tom-12-2",
+          "name": "12″ tom",
+          "tag": "Hard 2",
+          "file": "tom-12-2.wav",
+          "seconds": 3.2
+        }
+      ]
+    },
+    {
+      "id": "tom-13",
+      "label": "13″ tom",
+      "note": "Fits the 13″ rack tom",
+      "demo": false,
+      "sounds": [
+        {
+          "id": "tom-13-1",
+          "name": "13″ tom",
+          "tag": "Hard 1",
+          "file": "tom-13-1.wav",
+          "seconds": 3.2
+        },
+        {
+          "id": "tom-13-2",
+          "name": "13″ tom",
+          "tag": "Hard 2",
+          "file": "tom-13-2.wav",
+          "seconds": 3.2
+        }
+      ]
+    },
+    {
+      "id": "tom-14",
+      "label": "14″ tom",
+      "note": "Fits the 14″ floor tom",
+      "demo": false,
+      "sounds": [
+        {
+          "id": "tom-14-1",
+          "name": "14″ tom",
+          "tag": "Hard 1",
+          "file": "tom-14-1.wav",
+          "seconds": 3.2
+        },
+        {
+          "id": "tom-14-2",
+          "name": "14″ tom",
+          "tag": "Hard 2",
+          "file": "tom-14-2.wav",
+          "seconds": 3.2
+        }
+      ]
+    },
+    {
+      "id": "tom-16",
+      "label": "16″ tom",
+      "note": "Fits the 16″ floor tom",
+      "demo": false,
+      "sounds": [
+        {
+          "id": "tom-16-1",
+          "name": "16″ tom",
+          "tag": "Hard 1",
+          "file": "tom-16-1.wav",
+          "seconds": 3.2
+        },
+        {
+          "id": "tom-16-2",
+          "name": "16″ tom",
+          "tag": "Hard 2",
+          "file": "tom-16-2.wav",
+          "seconds": 3.2
+        }
+      ]
+    },
+    {
+      "id": "tom-18",
+      "label": "18″ tom",
+      "note": "Fits the 18″ floor tom",
+      "demo": false,
+      "sounds": [
+        {
+          "id": "tom-18-1",
+          "name": "18″ tom",
+          "tag": "Hard 1",
+          "file": "tom-18-1.wav",
+          "seconds": 3.2
+        },
+        {
+          "id": "tom-18-2",
+          "name": "18″ tom",
+          "tag": "Hard 2",
+          "file": "tom-18-2.wav",
+          "seconds": 3.2
+        }
+      ]
+    },
+    {
+      "id": "cross-stick",
+      "label": "Cross stick",
+      "note": "Fits the snare rim",
+      "demo": true,
+      "sounds": [
+        {
+          "id": "xs-1",
+          "name": "Side stick I",
+          "tag": "Wood",
+          "file": "xs-1.wav",
+          "seconds": 0.35
+        },
+        {
+          "id": "xs-2",
+          "name": "Side stick II",
+          "tag": "Wood",
+          "file": "xs-2.wav",
+          "seconds": 0.35
+        },
+        {
+          "id": "xs-3",
+          "name": "Side stick III",
+          "tag": "Wood",
+          "file": "xs-3.wav",
+          "seconds": 0.35
+        },
+        {
+          "id": "xs-4",
+          "name": "Side stick IV",
+          "tag": "Wood",
+          "file": "xs-4.wav",
+          "seconds": 0.35
+        },
+        {
+          "id": "xs-claves",
+          "name": "Claves",
+          "tag": "Percussion",
+          "file": "xs-claves.wav",
+          "seconds": 0.35
+        },
+        {
+          "id": "xs-woodblock",
+          "name": "Woodblock",
+          "tag": "Percussion",
+          "file": "xs-woodblock.wav",
+          "seconds": 0.35
+        },
+        {
+          "id": "xs-slapstick",
+          "name": "Slapstick",
+          "tag": "Percussion",
+          "file": "xs-slapstick.wav",
+          "seconds": 0.35
+        }
+      ]
+    },
+    {
+      "id": "hihat-closed",
+      "label": "Hi-hat closed",
+      "note": "Fits the closed hi-hat",
+      "demo": true,
+      "sounds": [
+        {
+          "id": "hc-1",
+          "name": "14″ hats",
+          "tag": "Hard",
+          "file": "hc-1.wav",
+          "seconds": 0.35
+        },
+        {
+          "id": "hc-2",
+          "name": "14″ hats II",
+          "tag": "Hard",
+          "file": "hc-2.wav",
+          "seconds": 0.35
+        },
+        {
+          "id": "hc-3",
+          "name": "14″ hats",
+          "tag": "Soft",
+          "file": "hc-3.wav",
+          "seconds": 0.35
+        },
+        {
+          "id": "hc-4",
+          "name": "14″ hats II",
+          "tag": "Soft",
+          "file": "hc-4.wav",
+          "seconds": 0.35
+        },
+        {
+          "id": "hc-v1",
+          "name": "Vintage hats",
+          "tag": "A",
+          "file": "hc-v1.wav",
+          "seconds": 0.35
+        },
+        {
+          "id": "hc-v2",
+          "name": "Vintage hats",
+          "tag": "B",
+          "file": "hc-v2.wav",
+          "seconds": 0.35
+        }
+      ]
+    },
+    {
+      "id": "hihat-open",
+      "label": "Hi-hat open",
+      "note": "Fits the open hi-hat",
+      "demo": true,
+      "sounds": [
+        {
+          "id": "ho-1",
+          "name": "14″ hats open",
+          "tag": "A",
+          "file": "ho-1.wav",
+          "seconds": 1.8
+        },
+        {
+          "id": "ho-2",
+          "name": "14″ hats open",
+          "tag": "B",
+          "file": "ho-2.wav",
+          "seconds": 1.8
+        },
+        {
+          "id": "ho-3",
+          "name": "14″ hats open",
+          "tag": "C",
+          "file": "ho-3.wav",
+          "seconds": 1.8
+        },
+        {
+          "id": "ho-v1",
+          "name": "Vintage hats open",
+          "tag": "A",
+          "file": "ho-v1.wav",
+          "seconds": 1.8
+        },
+        {
+          "id": "ho-v2",
+          "name": "Vintage hats open",
+          "tag": "B",
+          "file": "ho-v2.wav",
+          "seconds": 1.8
+        }
+      ]
+    },
+    {
+      "id": "hihat-foot",
+      "label": "Hi-hat foot",
+      "note": "Fits the hi-hat pedal",
+      "demo": true,
+      "sounds": [
+        {
+          "id": "hf-1",
+          "name": "14″ pedal chick",
+          "tag": "A",
+          "file": "hf-1.wav",
+          "seconds": 0.3
+        },
+        {
+          "id": "hf-2",
+          "name": "14″ pedal chick",
+          "tag": "B",
+          "file": "hf-2.wav",
+          "seconds": 0.3
+        },
+        {
+          "id": "hf-3",
+          "name": "14″ pedal chick",
+          "tag": "C",
+          "file": "hf-3.wav",
+          "seconds": 0.3
+        },
+        {
+          "id": "hf-v1",
+          "name": "Vintage pedal",
+          "tag": "A",
+          "file": "hf-v1.wav",
+          "seconds": 0.3
+        },
+        {
+          "id": "hf-v2",
+          "name": "Vintage pedal",
+          "tag": "B",
+          "file": "hf-v2.wav",
+          "seconds": 0.3
+        }
+      ]
+    },
+    {
+      "id": "crash",
+      "label": "Crash",
+      "note": "Fits both crash cymbals",
+      "demo": true,
+      "sounds": [
+        {
+          "id": "crash-a",
+          "name": "17″ crash",
+          "tag": "A",
+          "file": "crash-a.wav",
+          "seconds": 3
+        },
+        {
+          "id": "crash-b",
+          "name": "17″ crash",
+          "tag": "B",
+          "file": "crash-b.wav",
+          "seconds": 3
+        },
+        {
+          "id": "crash-hard",
+          "name": "17″ crash",
+          "tag": "Hard",
+          "file": "crash-hard.wav",
+          "seconds": 3
+        },
+        {
+          "id": "crash-mallet",
+          "name": "17″ crash",
+          "tag": "Mallet",
+          "file": "crash-mallet.wav",
+          "seconds": 3
+        },
+        {
+          "id": "crash-clash-1",
+          "name": "Clash cymbals I",
+          "tag": "Orchestral",
+          "file": "crash-clash-1.wav",
+          "seconds": 3
+        },
+        {
+          "id": "crash-clash-2",
+          "name": "Clash cymbals II",
+          "tag": "Orchestral",
+          "file": "crash-clash-2.wav",
+          "seconds": 3
+        },
+        {
+          "id": "crash-suspended",
+          "name": "Suspended cymbal",
+          "tag": "Orchestral",
+          "file": "crash-suspended.wav",
+          "seconds": 3
+        }
+      ]
+    },
+    {
+      "id": "ride",
+      "label": "Ride",
+      "note": "Fits the ride cymbal",
+      "demo": true,
+      "sounds": [
+        {
+          "id": "ride-1",
+          "name": "22″ ride",
+          "tag": "Strong I",
+          "file": "ride-1.wav",
+          "seconds": 3
+        },
+        {
+          "id": "ride-2",
+          "name": "22″ ride",
+          "tag": "Strong II",
+          "file": "ride-2.wav",
+          "seconds": 3
+        },
+        {
+          "id": "ride-3",
+          "name": "22″ ride",
+          "tag": "Strong III",
+          "file": "ride-3.wav",
+          "seconds": 3
+        },
+        {
+          "id": "ride-4",
+          "name": "22″ ride",
+          "tag": "Soft I",
+          "file": "ride-4.wav",
+          "seconds": 3
+        },
+        {
+          "id": "ride-5",
+          "name": "22″ ride",
+          "tag": "Soft II",
+          "file": "ride-5.wav",
+          "seconds": 3
+        },
+        {
+          "id": "ride-6",
+          "name": "22″ ride",
+          "tag": "Soft III",
+          "file": "ride-6.wav",
+          "seconds": 3
+        }
+      ]
+    },
+    {
+      "id": "china",
+      "label": "China",
+      "note": "Fits the black china cymbal",
+      "demo": true,
+      "sounds": [
+        {
+          "id": "china-1",
+          "name": "Suspended trash I",
+          "tag": "Dark",
+          "file": "china-1.wav",
+          "seconds": 2.6
+        },
+        {
+          "id": "china-2",
+          "name": "Suspended trash II",
+          "tag": "Dark",
+          "file": "china-2.wav",
+          "seconds": 2.6
+        },
+        {
+          "id": "china-3",
+          "name": "Clash trash I",
+          "tag": "Washy",
+          "file": "china-3.wav",
+          "seconds": 2.6
+        },
+        {
+          "id": "china-4",
+          "name": "Clash trash II",
+          "tag": "Washy",
+          "file": "china-4.wav",
+          "seconds": 2.6
+        }
+      ]
+    },
+    {
+      "id": "splash",
+      "label": "Splash",
+      "note": "Fits both splash cymbals",
+      "demo": true,
+      "sounds": [
+        {
+          "id": "splash-1",
+          "name": "Choked cymbal I",
+          "tag": "Short",
+          "file": "splash-1.wav",
+          "seconds": 1.3
+        },
+        {
+          "id": "splash-2",
+          "name": "Choked cymbal II",
+          "tag": "Short",
+          "file": "splash-2.wav",
+          "seconds": 1.3
+        },
+        {
+          "id": "splash-3",
+          "name": "Triangle I",
+          "tag": "Bright",
+          "file": "splash-3.wav",
+          "seconds": 1.3
+        },
+        {
+          "id": "splash-4",
+          "name": "Triangle II",
+          "tag": "Bright",
+          "file": "splash-4.wav",
+          "seconds": 1.3
+        }
+      ]
+    }
+  ]
+}

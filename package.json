@@ -1,0 +1,11 @@
+{
+  "name": "nishant-drummer-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Portfolio site for drummer Nishant, with a playable virtual drum kit.",
+  "scripts": {
+    "start": "node tools/serve.js",
+    "samples": "node tools/import-samples.js"
+  }
+}
