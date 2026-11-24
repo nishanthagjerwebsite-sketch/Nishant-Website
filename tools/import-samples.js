@@ -1,145 +1,95 @@
 // Builds the SOUND LIBRARY: assets/sounds/library/<id>.wav plus assets/sounds/library/manifest.json.
 //
-// Two kinds of sources:
-//  - Nishant's OWN recordings, read from the NH folder (kick, snare, toms). Set NH_DIR to point at it
-//    (default: ~/Downloads/NH). They keep their stereo image and are only trimmed, loudness-matched and limited.
-//  - DEMO sounds (hi-hat, cymbals, cross stick): real CC0 recordings from the "Recorded drums" release of
-//    github.com/Nullframe/daw-content (built from VCSL and Karoryfer samples). They are placeholders until his own arrive.
+// Kick, snare and toms are Nishant's own recordings; the hi-hat and cymbals are Paiste's recordings of the same models
+// (paiste.com Soundroom, © Paiste). All are read from the project's Sounds folder (or the folder in NH_DIR).
+// MP3s are decoded with ffmpeg, which must be installed. Sounds keep their stereo image and are only trimmed, loudness-matched and limited. A group with no sounds leaves its
+// part silent on the Play page.
 //
 // Sounds are grouped by the drum or cymbal they belong to; the Play page only lets a sound be dropped onto a part of
-// the same group. To add a recording by hand, drop a WAV in assets/sounds/library/ and add it to manifest.json.
+// the same group. To add a recording, put it in Sounds and list it in its group below.
 // Usage: npm run samples
+import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
-import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const RELEASE = 'https://github.com/Nullframe/daw-content/releases/download/drums-recorded-cc0-2026-09-30/';
 const outDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', 'assets', 'sounds', 'library');
-const NH_DIR = process.env.NH_DIR || path.join(os.homedir(), 'Downloads', 'NH');
-const cache = path.join(os.tmpdir(), 'nishant-drum-sources');
-fs.mkdirSync(cache, { recursive: true });
+const NH_DIR = process.env.NH_DIR || path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', 'Sounds');
 
-// A source is either a CC0 recording name (string) or { nh: 'FOLDER/File.wav' } inside the NH folder.
-// group: id, label, note, shape [max seconds, target loudness dBFS, tail fade ms], demo (true = placeholder sounds),
-// stereo (keep the recording's channels), sounds [id, name, tag, source]
+// group: id, label, note, shape [max seconds, target loudness dBFS, tail fade ms], sounds [id, name, tag, file in the Sounds folder]
 const GROUPS = [
-  // ---------------- Nishant's own recordings (NH folder) ----------------
-  { id: 'kick', label: 'Kick drum', note: 'Fits the 22″ kick', shape: [1.2, -10.5, 120], stereo: true, sounds: [
-    ['kick-d6-hard-1', 'D6 kick', 'Hard 1', { nh: 'KICK/HARD D6-001.wav' }],
-    ['kick-d6-hard-2', 'D6 kick', 'Hard 2', { nh: 'KICK/HARD D6-003.wav' }],
-    ['kick-d6-normal', 'D6 kick', 'Normal', { nh: 'KICK/NORMAL D6-002.wav' }],
-    ['kick-ba19-hard', 'BA19 kick', 'Hard', { nh: 'KICK/HARD BA19 -001.wav' }],
+  { id: 'kick', label: 'Kick drum', note: 'Fits the 22″ kick', shape: [1.2, -10.5, 120], sounds: [
+    ['kick-d6-hard-1', 'D6 kick', 'Hard 1', 'KICK/HARD D6-001.wav'],
+    ['kick-d6-hard-2', 'D6 kick', 'Hard 2', 'KICK/HARD D6-003.wav'],
+    ['kick-d6-normal', 'D6 kick', 'Normal', 'KICK/NORMAL D6-002.wav'],
+    ['kick-ba19-hard', 'BA19 kick', 'Hard', 'KICK/HARD BA19 -001.wav'],
   ] },
-  { id: 'snare', label: 'Snare', note: 'Fits the 14″ snare and the black side snare', shape: [2.0, -10.5, 250], stereo: true, sounds: [
-    ['snare-goblin', 'Goblin C', 'Rimshot', { nh: 'SNARE/GOBLIN C RIMSHOT 1.wav' }],
-    ['snare-solidus', 'Solidus B', 'Rimshot 3', { nh: 'SNARE/SOLIDUS B RIMSHOT 3 .wav' }],
-    ['snare-atomizer', 'Atomizer C', 'Rimshot', { nh: 'SNARE/C ATOMIZER RIMSHOT 1 .wav' }],
+  { id: 'snare', label: 'Snare', note: 'Fits the 14″ snare', shape: [2.0, -10.5, 250], sounds: [
+    ['snare-solidus', 'Solidus B', 'Rimshot 3', 'SNARE/SOLIDUS B RIMSHOT 3 .wav'],
   ] },
-  { id: 'tom-8', label: '8″ tom', note: 'Fits the 8″ rack tom', shape: [3.2, -11, 500], stereo: true, sounds: [
-    ['tom-8-1', '8″ tom', 'Hard 1', { nh: 'TOMS/8 INCH HARD 1.wav' }],
-    ['tom-8-2', '8″ tom', 'Hard 2', { nh: 'TOMS/8 INCH HARD 2.wav' }],
+  { id: 'snare-2', label: 'Side snare', note: 'Fits the black side snare', shape: [2.0, -10.5, 250], sounds: [
+    ['side-goblin', 'Goblin C', 'Rimshot', 'SNARE/GOBLIN C RIMSHOT 1.wav'],
+    ['side-solidus', 'Solidus B', 'Rimshot 3', 'SNARE/SOLIDUS B RIMSHOT 3 .wav'],
+    ['side-atomizer', 'Atomizer C', 'Rimshot', 'SNARE/C ATOMIZER RIMSHOT 1 .wav'],
   ] },
-  { id: 'tom-10', label: '10″ tom', note: 'Fits the 10″ rack tom', shape: [3.2, -11, 500], stereo: true, sounds: [
-    ['tom-10-1', '10″ tom', 'Hard 1', { nh: 'TOMS/10 INCH HARD 1.wav' }],
-    ['tom-10-2', '10″ tom', 'Hard 2', { nh: 'TOMS/10 INCH HARD 2.wav' }],
+  { id: 'tom-8', label: '8″ tom', note: 'Fits the 8″ rack tom', shape: [3.2, -11, 500], sounds: [
+    ['tom-8-1', '8″ tom', 'Hard 1', 'TOMS/8 INCH HARD 1.wav'],
+    ['tom-8-2', '8″ tom', 'Hard 2', 'TOMS/8 INCH HARD 2.wav'],
   ] },
-  { id: 'tom-12', label: '12″ tom', note: 'Fits the 12″ rack tom', shape: [3.2, -11, 500], stereo: true, sounds: [
-    ['tom-12-1', '12″ tom', 'Hard 1', { nh: 'TOMS/12 INCH HARD 1.wav' }],
-    ['tom-12-2', '12″ tom', 'Hard 2', { nh: 'TOMS/12 INCH HARD 2.wav' }],
+  { id: 'tom-10', label: '10″ tom', note: 'Fits the 10″ rack tom', shape: [3.2, -11, 500], sounds: [
+    ['tom-10-1', '10″ tom', 'Hard 1', 'TOMS/10 INCH HARD 1.wav'],
+    ['tom-10-2', '10″ tom', 'Hard 2', 'TOMS/10 INCH HARD 2.wav'],
   ] },
-  { id: 'tom-13', label: '13″ tom', note: 'Fits the 13″ rack tom', shape: [3.2, -11, 500], stereo: true, sounds: [
-    ['tom-13-1', '13″ tom', 'Hard 1', { nh: 'TOMS/13 INCH HARD 1.wav' }],
-    ['tom-13-2', '13″ tom', 'Hard 2', { nh: 'TOMS/13 INCH HARD 2.wav' }],
+  { id: 'tom-12', label: '12″ tom', note: 'Fits the 12″ rack tom', shape: [3.2, -11, 500], sounds: [
+    ['tom-12-1', '12″ tom', 'Hard 1', 'TOMS/12 INCH HARD 1.wav'],
+    ['tom-12-2', '12″ tom', 'Hard 2', 'TOMS/12 INCH HARD 2.wav'],
   ] },
-  { id: 'tom-14', label: '14″ tom', note: 'Fits the 14″ floor tom', shape: [3.2, -11, 500], stereo: true, sounds: [
-    ['tom-14-1', '14″ tom', 'Hard 1', { nh: 'TOMS/14 INCH HARD 1.wav' }],
-    ['tom-14-2', '14″ tom', 'Hard 2', { nh: 'TOMS/14 INCH HARD 2.wav' }],
+  { id: 'tom-13', label: '13″ tom', note: 'Fits the 13″ rack tom', shape: [3.2, -11, 500], sounds: [
+    ['tom-13-1', '13″ tom', 'Hard 1', 'TOMS/13 INCH HARD 1.wav'],
+    ['tom-13-2', '13″ tom', 'Hard 2', 'TOMS/13 INCH HARD 2.wav'],
   ] },
-  { id: 'tom-16', label: '16″ tom', note: 'Fits the 16″ floor tom', shape: [3.2, -11, 500], stereo: true, sounds: [
-    ['tom-16-1', '16″ tom', 'Hard 1', { nh: 'TOMS/16 INCH HARD 1.wav' }],
-    ['tom-16-2', '16″ tom', 'Hard 2', { nh: 'TOMS/16 INCH HARD 2.wav' }],
+  { id: 'tom-16', label: '16″ tom', note: 'Fits the 16″ floor tom', shape: [3.2, -11, 500], sounds: [
+    ['tom-16-1', '16″ tom', 'Hard 1', 'TOMS/16 INCH HARD 1.wav'],
+    ['tom-16-2', '16″ tom', 'Hard 2', 'TOMS/16 INCH HARD 2.wav'],
   ] },
-  { id: 'tom-18', label: '18″ tom', note: 'Fits the 18″ floor tom', shape: [3.2, -11, 500], stereo: true, sounds: [
-    ['tom-18-1', '18″ tom', 'Hard 1', { nh: 'TOMS/18 INCH HARD 1.wav' }],
-    ['tom-18-2', '18″ tom', 'Hard 2', { nh: 'TOMS/18 INCH HARD 2.wav' }],
+  { id: 'tom-18', label: '18″ tom', note: 'Fits the 18″ floor tom', shape: [3.2, -11, 500], sounds: [
+    ['tom-18-1', '18″ tom', 'Hard 1', 'TOMS/18 INCH HARD 1.wav'],
+    ['tom-18-2', '18″ tom', 'Hard 2', 'TOMS/18 INCH HARD 2.wav'],
   ] },
-  // ---------------- demo sounds (placeholders until his own cymbals and hats arrive) ----------------
-  { id: 'cross-stick', label: 'Cross stick', note: 'Fits the snare rim', demo: true, shape: [0.35, -12], sounds: [
-    ['xs-1', 'Side stick I', 'Wood', 'rim-sidestick-f-rr1'],
-    ['xs-2', 'Side stick II', 'Wood', 'rim-sidestick-f-rr2'],
-    ['xs-3', 'Side stick III', 'Wood', 'rim-sidestick-f-rr3'],
-    ['xs-4', 'Side stick IV', 'Wood', 'rim-sidestick-f-rr4'],
-    ['xs-claves', 'Claves', 'Percussion', 'claves-1-f'],
-    ['xs-woodblock', 'Woodblock', 'Percussion', 'woodblock-f-rr1'],
-    ['xs-slapstick', 'Slapstick', 'Percussion', 'slapstick-f-rr1'],
+  { id: 'hihat-closed', label: 'Hi-hat closed', note: 'Fits the closed hi-hat', shape: [0.35, -13, 60], sounds: [
+    ['hihat-closed', 'Dark Energy Mark I', 'Closed', 'CYMBALS/SIGNATURE DARK ENERGY HATS MARK I 14 - CLOSED.mp3'],
   ] },
-  { id: 'hihat-closed', label: 'Hi-hat closed', note: 'Fits the closed hi-hat', demo: true, shape: [0.35, -13], sounds: [
-    ['hc-1', '14″ hats', 'Hard', 'hat-closed-14in-f-rr1'],
-    ['hc-2', '14″ hats II', 'Hard', 'hat-closed-14in-f-rr2'],
-    ['hc-3', '14″ hats', 'Soft', 'hat-closed-14in-mf-rr1'],
-    ['hc-4', '14″ hats II', 'Soft', 'hat-closed-14in-mf-rr2'],
-    ['hc-v1', 'Vintage hats', 'A', 'hat-closed-vcsl-f-rr1'],
-    ['hc-v2', 'Vintage hats', 'B', 'hat-closed-vcsl-f-rr2'],
+  { id: 'hihat-open', label: 'Hi-hat open', note: 'Fits the open hi-hat', shape: [1.8, -13, 60], sounds: [
+    ['hihat-open', 'Dark Energy Mark I', 'Open', 'CYMBALS/SIGNATURE DARK ENERGY HATS MARK I 14 - OPEN.mp3'],
   ] },
-  { id: 'hihat-open', label: 'Hi-hat open', note: 'Fits the open hi-hat', demo: true, shape: [1.8, -13], sounds: [
-    ['ho-1', '14″ hats open', 'A', 'hat-open-14in-f-rr1'],
-    ['ho-2', '14″ hats open', 'B', 'hat-open-14in-f-rr2'],
-    ['ho-3', '14″ hats open', 'C', 'hat-open-14in-f-rr3'],
-    ['ho-v1', 'Vintage hats open', 'A', 'hat-open-vcsl-f-rr1'],
-    ['ho-v2', 'Vintage hats open', 'B', 'hat-open-vcsl-f-rr2'],
+  { id: 'hihat-foot', label: 'Hi-hat foot', note: 'Fits the hi-hat pedal', shape: [0.35, -13, 60], sounds: [
+    ['hihat-foot', 'Dark Energy Mark I', 'Chick', 'CYMBALS/SIGNATURE DARK ENERGY HATS MARK I 14 - CHICK.mp3'],
   ] },
-  { id: 'hihat-foot', label: 'Hi-hat foot', note: 'Fits the hi-hat pedal', demo: true, shape: [0.3, -13], sounds: [
-    ['hf-1', '14″ pedal chick', 'A', 'hat-pedal-14in-f-rr1'],
-    ['hf-2', '14″ pedal chick', 'B', 'hat-pedal-14in-f-rr2'],
-    ['hf-3', '14″ pedal chick', 'C', 'hat-pedal-14in-f-rr3'],
-    ['hf-v1', 'Vintage pedal', 'A', 'hat-pedal-vcsl-rr1'],
-    ['hf-v2', 'Vintage pedal', 'B', 'hat-pedal-vcsl-rr2'],
+  { id: 'crash', label: 'Crash', note: 'Fits the four crash cymbals', shape: [4.0, -12, 1500], sounds: [
+    ['crash-power', 'Power Crash', 'Edge', 'CYMBALS/2002 POWER CRASH 18 - EDGE.mp3'],
+    ['crash-wild', 'Wild Crash', 'Edge', 'CYMBALS/2002 WILD CRASH 18 - EDGE.mp3'],
+    ['crash-extreme', 'Extreme Crash', 'Edge', 'CYMBALS/2002 EXTREME CRASH 18 - EDGE.mp3'],
+    ['crash-purple', 'Purple Crash', 'Edge', 'CYMBALS/COLOR SOUND 900 PURPLE CRASH 16 - EDGE.mp3'],
   ] },
-  { id: 'crash', label: 'Crash', note: 'Fits both crash cymbals', demo: true, shape: [3.0, -12], sounds: [
-    ['crash-a', '17″ crash', 'A', 'crash-17in-f-rr1'],
-    ['crash-b', '17″ crash', 'B', 'crash-17in-f-rr2'],
-    ['crash-hard', '17″ crash', 'Hard', 'crash-17in-ff-rr2'],
-    ['crash-mallet', '17″ crash', 'Mallet', 'crash-17in-mallet-ff-rr1'],
-    ['crash-clash-1', 'Clash cymbals I', 'Orchestral', 'crash-clash-1-ff-rr2'],
-    ['crash-clash-2', 'Clash cymbals II', 'Orchestral', 'crash-clash-2-fff-rr1'],
-    ['crash-suspended', 'Suspended cymbal', 'Orchestral', 'crash-suspended-1-f'],
+  { id: 'ride', label: 'Ride', note: 'Fits the black ride', shape: [4.0, -13, 1500], sounds: [
+    ['ride-body', 'Giga Bell', 'Body', 'CYMBALS/2002 GIGA BELL RIDE PSYCHOCTOPUS 18 - BODY.mp3'],
+    ['ride-bell', 'Giga Bell', 'Bell', 'CYMBALS/2002 GIGA BELL RIDE PSYCHOCTOPUS 18 - BELL.mp3'],
+    ['ride-edge', 'Giga Bell', 'Edge', 'CYMBALS/2002 GIGA BELL RIDE PSYCHOCTOPUS 18 - EDGE.mp3'],
   ] },
-  { id: 'ride', label: 'Ride', note: 'Fits the ride cymbal', demo: true, shape: [3.0, -13], sounds: [
-    ['ride-1', '22″ ride', 'Strong I', 'ride-22in-f-rr1'],
-    ['ride-2', '22″ ride', 'Strong II', 'ride-22in-f-rr2'],
-    ['ride-3', '22″ ride', 'Strong III', 'ride-22in-f-rr3'],
-    ['ride-4', '22″ ride', 'Soft I', 'ride-22in-mf-rr1'],
-    ['ride-5', '22″ ride', 'Soft II', 'ride-22in-mf-rr2'],
-    ['ride-6', '22″ ride', 'Soft III', 'ride-22in-mf-rr3'],
+  { id: 'china', label: 'China', note: 'Fits the china cymbal', shape: [4.0, -12, 1500], sounds: [
+    ['china-edge', 'Novo China', 'Edge', 'CYMBALS/2002 NOVO CHINA 18 - EDGE.mp3'],
   ] },
-  { id: 'china', label: 'China', note: 'Fits the black china cymbal', demo: true, shape: [2.6, -12], sounds: [
-    ['china-1', 'Suspended trash I', 'Dark', 'crash-suspended-1-fff'],
-    ['china-2', 'Suspended trash II', 'Dark', 'crash-suspended-2-fff'],
-    ['china-3', 'Clash trash I', 'Washy', 'crash-clash-1-ff-rr3'],
-    ['china-4', 'Clash trash II', 'Washy', 'crash-clash-2-fff-rr2'],
-  ] },
-  { id: 'splash', label: 'Splash', note: 'Fits both splash cymbals', demo: true, shape: [1.3, -12], sounds: [
-    ['splash-1', 'Choked cymbal I', 'Short', 'crash-clash-choked-rr1'],
-    ['splash-2', 'Choked cymbal II', 'Short', 'crash-clash-choked-rr2'],
-    ['splash-3', 'Triangle I', 'Bright', 'triangle-f-rr1'],
-    ['splash-4', 'Triangle II', 'Bright', 'triangle-f-rr2'],
+  { id: 'splash', label: 'Splash', note: 'Fits the splash cymbal', shape: [2.5, -12, 800], sounds: [
+    ['splash-edge', 'Purple Splash', 'Edge', 'CYMBALS/COLOR SOUND 900 PURPLE SPLASH 10 - EDGE.mp3'],
+    ['splash-choke', 'Purple Splash', 'Choke', 'CYMBALS/COLOR SOUND 900 PURPLE SPLASH 10 - CHOKE.mp3'],
   ] },
 ];
 
-async function fetchSource(name) {
-  const file = path.join(cache, `${name}.wav`);
-  if (!fs.existsSync(file)) {
-    const res = await fetch(`${RELEASE}${name}.wav`);
-    if (!res.ok) throw new Error(`${name}: HTTP ${res.status}`);
-    fs.writeFileSync(file, Buffer.from(await res.arrayBuffer()));
-  }
-  return fs.readFileSync(file);
-}
 function readLocal(rel) {
   const file = path.join(NH_DIR, rel);
   if (!fs.existsSync(file)) throw new Error(`Missing ${file}. Set NH_DIR to the folder that holds KICK, SNARE and TOMS.`);
-  return fs.readFileSync(file);
+  if (/\.wav$/i.test(file)) return fs.readFileSync(file);
+  return execFileSync('ffmpeg', ['-v', 'error', '-nostdin', '-i', file, '-c:a', 'pcm_f32le', '-f', 'wav', '-fflags', '+bitexact', '-'], { maxBuffer: 1 << 28 });
 }
 
 // Decode a WAV (16/24/32-bit PCM or 32-bit float) into one Float32Array per channel.
@@ -169,13 +119,6 @@ function readWav(buf) {
   }
   return { channels, sr: fmt.sr };
 }
-const toMono = ({ channels, sr }) => {
-  if (channels.length === 1) return { channels, sr };
-  const m = new Float32Array(channels[0].length);
-  for (let i = 0; i < m.length; i++) m[i] = channels.reduce((a, c) => a + c[i], 0) / channels.length;
-  return { channels: [m], sr };
-};
-
 const CEILING = 0.97;
 // Peak limiter with 2 ms lookahead. The gain reduction is linked across channels so the stereo image is preserved.
 function limit(chs, sr) {
@@ -235,19 +178,19 @@ function writeWav(file, { channels, sr }) {
 fs.rmSync(outDir, { recursive: true, force: true });
 fs.mkdirSync(outDir, { recursive: true });
 const manifest = {
-  source: 'Kick, snare and toms: Nishant’s own recordings. Everything else: CC0 demo recordings (VCSL, Karoryfer) via github.com/Nullframe/daw-content',
+  source: 'Kick, snare and toms: Nishant’s own recordings. Hi-hat and cymbals: © Paiste (paiste.com Soundroom)',
   groups: [],
 };
 for (const g of GROUPS) {
-  const entry = { id: g.id, label: g.label, note: g.note, demo: !!g.demo, sounds: [] };
+  const entry = { id: g.id, label: g.label, note: g.note, sounds: [] };
   for (const [id, name, tag, source] of g.sounds) {
-    const raw = readWav(typeof source === 'string' ? await fetchSource(source) : readLocal(source.nh));
-    const shaped = shape(g.stereo ? raw : toMono(raw), g.shape);
+    const raw = readWav(readLocal(source));
+    const shaped = shape(raw, g.shape);
     writeWav(path.join(outDir, `${id}.wav`), shaped);
     entry.sounds.push({ id, name, tag, file: `${id}.wav`, seconds: Math.round((shaped.channels[0].length / shaped.sr) * 100) / 100 });
   }
   manifest.groups.push(entry);
-  console.log(`${g.id}: ${entry.sounds.length} sounds${g.demo ? ' (demo)' : ''}`);
+  console.log(`${g.id}: ${entry.sounds.length} sounds`);
 }
 fs.writeFileSync(path.join(outDir, 'manifest.json'), JSON.stringify(manifest, null, 2) + '\n');
 console.log(`Wrote ${manifest.groups.reduce((n, g) => n + g.sounds.length, 0)} sounds to ${outDir}`);

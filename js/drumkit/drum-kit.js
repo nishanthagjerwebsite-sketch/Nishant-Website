@@ -28,10 +28,12 @@ export async function initDrumKit() {
   const sounds = new Map();
   groups.forEach((g) => g.sounds.forEach((s) => sounds.set(s.id, { ...s, group: g.id, url: KIT.library + s.file })));
 
-  // ---- which sound is on which part (defaults: the first sound of each group; changes are remembered) ----
+  // ---- which sound is on which part (defaults: the part's own sound, or the first of its group; changes are remembered) ----
   const parts = PARTS.map((p) => ({ ...p, view: { art: null, glow: null, els: [] } }));
   const partById = new Map(parts.map((p) => [p.id, p]));
-  const assigned = new Map(parts.map((p) => [p.id, groups.find((g) => g.id === p.group).sounds[0].id]));
+  // a group with no sounds yet leaves its parts silent
+  const defaultSound = (p) => (sounds.get(p.sound)?.group === p.group ? p.sound : groups.find((g) => g.id === p.group)?.sounds[0]?.id);
+  const assigned = new Map(parts.map((p) => [p.id, defaultSound(p)]));
   try {
     const saved = JSON.parse(localStorage.getItem(STORE) || '{}');
     Object.entries(saved).forEach(([pid, sid]) => { if (partById.has(pid) && sounds.get(sid)?.group === partById.get(pid).group) assigned.set(pid, sid); });
@@ -49,10 +51,11 @@ export async function initDrumKit() {
     play(partId) {
       const part = partById.get(partId);
       const snd = soundOf(partId);
+      if (part.view.art || part.view.glow) flash(part);
+      if (!snd) return;
       const buf = engine.buffers.get(snd.url);
       if (buf) engine.play(partId, buf, { chokes: part.chokes });
       else engine.load(snd.url).then((b) => b && engine.play(partId, b, { chokes: part.chokes }));
-      if (part.view.art || part.view.glow) flash(part);
     },
     preview(soundId) {
       engine.unlock();
@@ -69,7 +72,7 @@ export async function initDrumKit() {
       return true;
     },
     reset() {
-      parts.forEach((p) => assigned.set(p.id, groups.find((g) => g.id === p.group).sounds[0].id));
+      parts.forEach((p) => assigned.set(p.id, defaultSound(p)));
       persist();
       listeners.forEach((fn) => fn());
       api.toast('Every part is back to its default sound.', 'ok');
@@ -110,7 +113,7 @@ export async function initDrumKit() {
     const h = part.hotspot, k = KIT.width / KIT.ref;
     const cx = h.cx * k, cy = h.cy * k, ry = h.ry * k;
     const snd = soundOf(part.id);
-    tip.innerHTML = `<strong>${partName(part)}</strong><span>${snd.name} · ${snd.tag}</span><kbd>${part.keys.join(' / ').toUpperCase()}</kbd>`;
+    tip.innerHTML = `<strong>${partName(part)}</strong><span>${snd ? `${snd.name} · ${snd.tag}` : 'No sound yet'}</span><kbd>${part.keys.join(' / ').toUpperCase()}</kbd>`;
     const above = part.tip ? part.tip === 'above' : (cy - ry) / KIT.height > 0.16; // flip below when near the top edge
     tip.classList.toggle('is-below', !above);
     tip.style.left = `${Math.min(Math.max((cx / KIT.width) * 100, 16), 84)}%`;
@@ -152,7 +155,8 @@ export async function initDrumKit() {
     warm.disconnect();
     say(engine.supported ? 'Loading sounds…' : 'Web Audio is not supported in this browser.');
     if (!engine.supported) return;
-    Promise.all([...new Set(assigned.values())].map((id) => engine.load(sounds.get(id).url))).then(() => say(''));
+    const ready = [...new Set(assigned.values())].filter((id) => sounds.has(id));
+    Promise.all(ready.map((id) => engine.load(sounds.get(id).url))).then(() => say(sounds.size ? '' : 'New sounds are on their way.'));
   }, { rootMargin: '800px 0px' });
   warm.observe(root);
 

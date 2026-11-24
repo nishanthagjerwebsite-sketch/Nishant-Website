@@ -530,6 +530,8 @@ input[type="range"]::-moz-range-thumb { width: 14px; height: 14px; border-radius
 @media (max-width: 640px) { .kit-tip { padding: .3rem .5rem; gap: .4rem; } .kit-tip strong { font-size: .95rem; } .kit-tip span { font-size: .8rem; } .kit-tip kbd { display: none; } }
 .is-dragging .kit-tip { display: none; }
 
+/* parts with no sound yet */
+.srow select:disabled, .srow__play:disabled { opacity: .45; cursor: default; }
 /* demo badge */
 .lib-demo { display: inline-block; padding: .1rem .5rem; border: 1px solid var(--verd); font: 400 1.1rem/1.2 var(--sc); letter-spacing: .1em; color: var(--verd); vertical-align: .15em; }
 .library__head p em { font-style: normal; font-weight: 600; color: var(--verd); }

@@ -23,7 +23,7 @@ export function initLibraryUI(api, { libraryEl, setupEl, toastEl, sections }) {
 
   // ---------------- sound library: tabs, one group at a time, so nothing scrolls ----------------
   const CATS = [
-    { id: 'drums', label: 'Drums', match: (g) => /^(kick|snare|cross-stick|tom-)/.test(g.id) },
+    { id: 'drums', label: 'Drums', match: (g) => /^(kick|snare|tom-)/.test(g.id) },
     { id: 'hats', label: 'Hi-hat', match: (g) => g.id.startsWith('hihat-') },
     { id: 'cymbals', label: 'Cymbals', match: (g) => /^(crash|ride|china|splash)$/.test(g.id) },
   ].map((c) => ({ ...c, groups: groups.filter(c.match) })).filter((c) => c.groups.length);
@@ -37,7 +37,7 @@ export function initLibraryUI(api, { libraryEl, setupEl, toastEl, sections }) {
       <section class="lib-group" id="lib-${g.id}" data-group="${g.id}" role="tabpanel" aria-labelledby="chip-${g.id}" hidden>
         <header>
           <h3>${esc(g.label)}${g.demo ? '<span class="lib-demo">Demo</span>' : ''}</h3>
-          <p>${esc(g.note)} · ${g.sounds.length} sound${g.sounds.length === 1 ? '' : 's'}</p>
+          <p>${esc(g.note)} · ${g.sounds.length ? `${g.sounds.length} sound${g.sounds.length === 1 ? '' : 's'}` : 'no sounds yet'}</p>
         </header>
         <ul>${g.sounds.map((s) => `
           <li class="snd" data-sound="${s.id}" data-group="${g.id}">
@@ -92,14 +92,15 @@ export function initLibraryUI(api, { libraryEl, setupEl, toastEl, sections }) {
       <ul class="setup-list">${sec.parts.map((id) => {
         const p = partById.get(id);
         const keys = p.keys.join(' / ').toUpperCase();
-        const opts = groups.find((g) => g.id === p.group).sounds.map((s) => `<option value="${s.id}">${esc(s.name)} · ${esc(s.tag)}</option>`).join('');
+        const has = groups.find((g) => g.id === p.group).sounds.length > 0;
+        const opts = groups.find((g) => g.id === p.group).sounds.map((s) => `<option value="${s.id}">${esc(s.name)} · ${esc(s.tag)}</option>`).join('') || '<option value="">No sound yet</option>';
         return `
         <li class="srow" data-part="${p.id}" data-group="${p.group}">
           <div class="srow__name"><strong>${esc(p.label)}</strong>${p.size ? `<span class="srow__size">${esc(p.size)}</span>` : ''}${p.hotspot ? '' : '<span class="srow__note">not in the photo</span>'}</div>
           <kbd class="srow__keys">${keys}</kbd>
           <label class="visually-hidden" for="sel-${p.id}">Sound for ${esc(partName(p))}</label>
-          <select id="sel-${p.id}" data-select>${opts}</select>
-          <button class="srow__play" type="button" aria-label="Play ${esc(partName(p))}">${PLAY_ICON}</button>
+          <select id="sel-${p.id}" data-select${has ? '' : ' disabled'}>${opts}</select>
+          <button class="srow__play" type="button"${has ? '' : ' disabled'} aria-label="Play ${esc(partName(p))}">${PLAY_ICON}</button>
         </li>`;
       }).join('')}</ul>
     </section>`).join('');
@@ -108,12 +109,13 @@ export function initLibraryUI(api, { libraryEl, setupEl, toastEl, sections }) {
   function sync() {
     const usedBy = new Map();
     parts.forEach((p) => {
-      const sid = api.soundOf(p.id).id;
+      const snd = api.soundOf(p.id);
+      const sid = snd?.id || '';
       setupEl.querySelector(`.srow[data-part="${p.id}"] select`).value = sid;
       if (!usedBy.has(sid)) usedBy.set(sid, []);
       usedBy.get(sid).push(p.size ? `${p.label.replace(/ (closed|open)$/, '')} ${p.size}` : p.label);
       const el = document.querySelector(`.piece[data-piece="${p.id}"]`);
-      if (el) el.setAttribute('aria-label', `${partName(p)}, key ${p.keys.join(' or ').toUpperCase()}, sound: ${api.soundOf(p.id).name} ${api.soundOf(p.id).tag}`);
+      if (el) el.setAttribute('aria-label', `${partName(p)}, key ${p.keys.join(' or ').toUpperCase()}, ${snd ? `sound: ${snd.name} ${snd.tag}` : 'no sound yet'}`);
     });
     libraryEl.querySelectorAll('.snd').forEach((li) => {
       const list = usedBy.get(li.dataset.sound);
