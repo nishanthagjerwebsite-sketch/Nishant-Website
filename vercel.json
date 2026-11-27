@@ -2,6 +2,7 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "redirects": [
+    { "source": "/", "has": [{ "type": "host", "value": "nishant-website-nine.vercel.app" }], "destination": "https://www.nishanthagjer.com/", "permanent": true },
     { "source": "/:path*", "has": [{ "type": "host", "value": "nishant-website-nine.vercel.app" }], "destination": "https://www.nishanthagjer.com/:path*", "permanent": true }
   ]
 }
