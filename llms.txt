@@ -14,13 +14,13 @@ Key facts:
 
 ## Pages
 
-- [Home](https://nishant-website-nine.vercel.app/): introduction, selected work, endorsements and career summary
-- [About](https://nishant-website-nine.vercel.app/about): biography, career highlights, photos, teaching, cymbal setup and endorsements
-- [Media](https://nishant-website-nine.vercel.app/media): drum covers and collaborations on video, bands and projects
-- [Play](https://nishant-website-nine.vercel.app/play): a free playable virtual version of his Mapex Saturn Evolution drum kit, with swappable sounds
-- [Online lessons](https://nishant-website-nine.vercel.app/online-lessons): request a live one-on-one drum lesson over video call
-- [Courses](https://nishant-website-nine.vercel.app/courses): video drum courses, coming soon, with an email sign-up
-- [Contact](https://nishant-website-nine.vercel.app/contact): contact form, email and social links
+- [Home](https://www.nishanthagjer.com/): introduction, selected work, endorsements and career summary
+- [About](https://www.nishanthagjer.com/about): biography, career highlights, photos, teaching, cymbal setup and endorsements
+- [Media](https://www.nishanthagjer.com/media): drum covers and collaborations on video, bands and projects
+- [Play](https://www.nishanthagjer.com/play): a free playable virtual version of his Mapex Saturn Evolution drum kit, with swappable sounds
+- [Online lessons](https://www.nishanthagjer.com/online-lessons): request a live one-on-one drum lesson over video call
+- [Courses](https://www.nishanthagjer.com/courses): video drum courses, coming soon, with an email sign-up
+- [Contact](https://www.nishanthagjer.com/contact): contact form, email and social links
 
 ## Elsewhere
 

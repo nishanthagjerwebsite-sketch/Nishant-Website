@@ -1,4 +1,7 @@
 {
   "cleanUrls": true,
-  "trailingSlash": false
+  "trailingSlash": false,
+  "redirects": [
+    { "source": "/:path*", "has": [{ "type": "host", "value": "nishant-website-nine.vercel.app" }], "destination": "https://www.nishanthagjer.com/:path*", "permanent": true }
+  ]
 }

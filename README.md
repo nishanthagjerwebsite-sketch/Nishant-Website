@@ -33,7 +33,7 @@ Layout follows anikanilles.com: a slim centred top bar of small uppercase links,
 - **`robots.txt`**, **`sitemap.xml`** and **`llms.txt`** (a plain summary for AI assistants) are in the root. When you add or change a page, update the sitemap (`lastmod` too) and `llms.txt`.
 - **Google Search Console** is verified by the `google-site-verification` tag in `index.html`. Keep it there.
 - **Photos** in `assets/photos/nh/` and the kit photo have smaller `.webp` copies (640 to 2400px wide) that browsers choose through `srcset`. If you replace a JPEG, remake its `.webp` copies or remove the `srcset`, or the old photo keeps showing.
-- **Changing the domain:** replace `https://nishant-website-nine.vercel.app` in all the HTML files, `robots.txt`, `sitemap.xml` and `llms.txt`.
+- **Changing the domain:** replace `https://www.nishanthagjer.com` in all the HTML files, `robots.txt`, `sitemap.xml` and `llms.txt`.
 
 ## Content and sources
 

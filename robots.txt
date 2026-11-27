@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://nishant-website-nine.vercel.app/sitemap.xml
+Sitemap: https://www.nishanthagjer.com/sitemap.xml
